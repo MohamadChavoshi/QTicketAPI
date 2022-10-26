@@ -3,7 +3,7 @@ const app = express()
 
 
 app.get('/', (req,res) => {
-    res.send(200)
+    res.sendStatus(200)
 })
 
 
