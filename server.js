@@ -1,6 +1,9 @@
 const express = require('express')
-const db = require('mysql2')
+const db = require('./database')
 const app = express()
+
+
+
 
 
 app.get('/', (req,res) => {
@@ -10,10 +13,10 @@ app.get('/', (req,res) => {
 })
 
 app.post('/register' , (req,res) =>{
-    const { username , password } = req.query
+    const { username , password , email } = req.query
     const { authorization } = req.header
     if(authorization && authorization == "test"){
-        
+        db.promise().query(``)
     }
 })
 
