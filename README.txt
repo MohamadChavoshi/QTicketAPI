@@ -14,3 +14,14 @@ Requirements
     table : tempuser
     row : email VARCHAR (60) , validToken (100)
 } 
+
+
+
+API USAGE : 
+
+
+    1 - Register a user :
+    
+        Method : POST
+        Example : http://localhost:3000/UserRegister/register?username=SomeThing&password=SomeThing&email=SomeThing
+    
