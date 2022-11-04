@@ -1,12 +1,18 @@
 const express = require('express')
-const db = require('mysql2')
+const UserRegister = require('./routes/UserRegister');
 const app = express()
 
 
+
 app.get('/', (req,res) => {
-    res.sendStatus(200).send({msg : "Connected Successful"})
-    // test new pull request
+    res.status(200).send({
+         Status : "Connecttion Successful"
+    })
 })
+
+
+app.use('/UserRegister', UserRegister);
+
 
 
 app.listen(3000 , () => console.log('[+]   Server Started ... '))
