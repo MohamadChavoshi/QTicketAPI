@@ -9,7 +9,9 @@
   "author": "EET ( EeasyETech )",
   "license": "ISC",
   "dependencies": {
+    "crypto": "^1.0.1",
     "express": "^4.18.2",
+    "knex": "^2.3.0",
     "mysql2": "^2.3.3",
     "nodemailer": "^6.8.0"
   },
