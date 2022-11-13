@@ -8,6 +8,7 @@ const app = express()
 
 
 
+
 app.get('/', (req,res) => {
     res.status(200).send({
          Status : "Connecttion Successful"
@@ -16,7 +17,7 @@ app.get('/', (req,res) => {
 
 
 app.use('/UserRegister', UserRegister);
-app.use('/CodeCenter', CodeCenter)
+app.use('/CodeCenter', CodeCenter);
 
 
 const sslServer = https.createServer({
