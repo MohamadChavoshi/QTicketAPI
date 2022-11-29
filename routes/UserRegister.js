@@ -2,9 +2,9 @@ const { Router } = require('express');
 const router = Router();
 const { SendMail } = require('../lib/Email')
 const {TokenGenerate , checkEmail} = require('../lib/Validation')
-const db = require('../lib/database');
-const { default: knex } = require('knex');
-
+require('../lib/database');
+const { default: knex, Knex } = require('knex');
+const {generate_token} = require('../lib/TokenGenerator')
 
 
 
@@ -18,9 +18,9 @@ router.post('/register', (req,res) =>{
     if(checkEmail(email)){
         if( username && password && email){
             // Generate Token & storing with email inside Temporary Database 
-            var Token = TokenGenerate();
+            var Token = TokenGenerate()
             // db.promise().query(`INSERT INTO tempuser(email , validToken, username , password) VALUES('${email}','${Token}', '${username}', '${password}')`);
-            knex('tempuser').insert([{ email: email },{ validtoken: Token},{username: username},{password: password}])
+            knex('tempuser').insert([{ email: email },{ validtoken: Token},{username: username},{password: password}]);
             // Sending email verification
             SendMail(email,Token)
         // Here is Expieration Time
@@ -71,14 +71,15 @@ router.get('/emailvalidation', (req, res) => {
     if(Token && UserUsername && UserPass && validtoken && UEmail && UserEmail){
 
         if(validtoken == Token && UEmail == UserEmail){
-
-            res.status(200).send({ emailStatus : "Verification Completed Successfuly " })
+            const accesstoken = generate_token(500)
+            res.status(200).send({ emailStatus : "Verification Completed Successfuly ", accessToken : accesstoken })
             // Here should pass all username and password an email to main database
             // db.promise().query(`INSERT INTO users(username , password , email) VALUES('${UserUsername}', '${UserPass}', '${UserEmail}')`)
             knex('users').insert([
                 {username : UserUsername},
                 {password : UserPass},
-                {email : UserEmail}
+                {email : UserEmail},
+                {accesstoken : accesstoken}
             ]);
         }else {
             res.status(403).send({ msg : "403 Error: Permission Denied" })
@@ -91,5 +92,8 @@ router.get('/emailvalidation', (req, res) => {
 })
 
 module.exports = router;
+
+
+
 
 

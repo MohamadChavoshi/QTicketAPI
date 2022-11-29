@@ -1,12 +1,18 @@
 const { Router } = require('express');
 const router = Router();
-const db = require('../lib/database');
+knex = require('../lib/database');
 
 
 
-router.post('/storingcode', (req,res) => {
+
+router.post('/storingcode', async (req,res) => {
     var { RECCode , GUID} = req.query
-    res.status(200)
+    if(accessToken(req.headers.authorization) && RECCode && GUID){
+        knex('coderepo').insert({Code: RECCode, GUID: GUID , accesstoken: req.headers.authorization})
+    }else {
+        res.status(403).send("403 Error unauthorized")
+    }
+
 })
 
 
