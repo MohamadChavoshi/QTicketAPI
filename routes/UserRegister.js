@@ -5,7 +5,6 @@ const { SendMail } = require('../lib/Email')
 const {TokenGenerate , checkEmail} = require('../lib/Validation')
 require('../lib/database');
 const { generate_token } = require('../lib/TokenGenerator');
-const e = require('express');
 
 
 
