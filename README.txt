@@ -18,6 +18,7 @@ Requirements
     table: coderepo
     row : Code VARCHAR(255) , GUID VARCHAR(60)
 }
+5. set a expire date for env file (Token_Expire_Date)
 
 
 API USAGE : 

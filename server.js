@@ -4,6 +4,7 @@ const path = require('path')
 const fs = require('fs')
 const UserRegister = require('./routes/UserRegister');
 const CodeCenter = require('./routes/CodeCenter')
+const test = require('./routes/test')
 const app = express()
 
 
@@ -18,6 +19,7 @@ app.get('/', (req,res) => {
 
 app.use('/UserRegister', UserRegister);
 app.use('/CodeCenter', CodeCenter);
+app.use('/test', test)
 
 
 const sslServer = https.createServer({
