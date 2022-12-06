@@ -10,8 +10,9 @@ knex = require('../lib/database');
 router.post('/storingcode', async (req,res) => {
     var { RECCode , GUID} = req.query
     if(req.headers.authorization && RECCode && GUID){
-        if(TokenValidator(req.headers.authorization)){
-            knex('coderepo').insert({Code: RECCode, GUID: GUID , accesstoken: req.headers.authorization})
+        if(await TokenValidator(req.headers.authorization)){
+            await knex('coderepo').insert({Code: RECCode, GUID: GUID , accesstoken: req.headers.authorization})
+            res.status(200).send({ msg : "ok"})
         }else{
             res.status(403).send("Permission denied : 403 ERROR unathorized")
         }
@@ -26,7 +27,7 @@ router.post('/storingcode', async (req,res) => {
 router.post('/codevalidator', async (req,res) => {
     var { RECCode, GUID} = req.query
     if(RECCode && req.headers.authorization && GUID){
-        if(TokenValidator(req.headers.authorization)){
+        if(await TokenValidator(req.headers.authorization)){
             let resault = await knex('coderepo').select('Code').where('GUID',GUID)
             resault = resault[0]
             if(resault == undefined){ 
@@ -39,7 +40,7 @@ router.post('/codevalidator', async (req,res) => {
             res.status(403).send("Permission denied : 403 ERROR unathorized")
         }
     }else{
-        res.status(400).send({ msg : "ERROR 400 : BAD USER INPURT"})
+        res.status(400).send({ msg : "ERROR 400 : BAD USER INPURT "})
     }
 })
 

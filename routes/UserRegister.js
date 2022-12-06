@@ -15,7 +15,7 @@ const { generate_token } = require('../lib/TokenGenerator');
 
 router.post('/register', async (req,res) =>{
     const { username , password , email } = req.query
-    if(checkparamSize(username) && checkparamSize(password) && checkparamSize(email)){
+    if(checkparamSize(username,"username") && checkparamSize(password,"password") && checkparamSize(email,"email")){
         if(checkEmail(email)){
             if( username && password && email){
                 const StartTime = Date.now()
@@ -47,7 +47,7 @@ router.get('/emailvalidation', async (req, res) => {
     const { validtoken ,  UEmail } = req.query
 
 
-    if(checkparamSize(validtoken) && checkparamSize(UEmail)){
+    if(checkparamSize(validtoken,"validToken") && checkparamSize(UEmail,"email")){
 
         // Check expire date
 
