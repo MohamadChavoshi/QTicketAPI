@@ -3,8 +3,8 @@ const https = require('https')
 const path = require('path')
 const fs = require('fs')
 const UserRegister = require('./routes/UserRegister');
-const CodeCenter = require('./routes/CodeCenter')
-const test = require('./routes/test')
+const CodeCenter = require('./routes/CodeCenter');
+const Login = require('./routes/Login');
 const app = express()
 
 
@@ -19,8 +19,7 @@ app.get('/', (req,res) => {
 
 app.use('/UserRegister', UserRegister);
 app.use('/CodeCenter', CodeCenter);
-app.use('/test', test)
-
+app.use('/Login',Login)
 
 const sslServer = https.createServer({
     key: fs.readFileSync(path.join(__dirname, 'cert', 'key.pem')),
